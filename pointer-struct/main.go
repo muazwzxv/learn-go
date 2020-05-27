@@ -39,42 +39,41 @@ type AuthorJson struct {
 
 // Manipulates the json struct
 func useJson() {
-	e := Book {
-		name: "The world of dicks",
-		pages: 300,
-		author: Author {
-			name: "Muaz Bin Wazir",
-			age: 21,
-			nationality: "Malaysian",
-			salary: 60000.00,
-		},
-	}
+	json_string := `
+	{
+		"name" : "world of dicks 2",
+		"pages": "302",
+		"author ": 
+	}`
 }
 
 // Manipulates the default data type struct
 func defaultDataType() {
 	e := Book {
-		name: "The world of dicks",
-		pages: 300,
-		author: Author {
-			name: "Muaz Bin Wazir",
-			age: 21,
-			nationality: "Malaysian",
-			salary: 60000.00,
+		Name: "The world of dicks",
+		Pages: 300,
+		Author: Author {
+			Name: "Muaz Bin Wazir",
+			Age: 21,
+			Nationality: "Malaysian",
+			Salary: 60000.00,
 		},
 	}
 
-
 	fmt.Println("Proper output")
-	fmt.Println("Name :", e.name)
-	fmt.Println("Pages :", e.pages)
-	fmt.Println("Authors Name :", e.author.name)
-	fmt.Println("Authos age :",e.author.age)
-	fmt.Println("Authors nationality :", e.author.nationality)
-	fmt.Println("Authors salary :", e.author.salary)
+	fmt.Println("Name :", e.Name)
+	fmt.Println("Pages :", e.Pages)
+	fmt.Println("Authors Name :", e.Author.Name)
+	fmt.Println("Authos age :",e.Author.Age)
+	fmt.Println("Authors nationality :", e.Author.Nationality)
+	fmt.Println("Authors salary :", e.Author.Salary)
 
 	fmt.Println("Display as struct")
 	fmt.Println(e)
 }
 
+// Entry point
+func main() {
+	defaultDataType()
+}
 
