@@ -49,15 +49,17 @@ func useJson() {
 
 // Manipulates the default data type struct
 func defaultDataType() {
+	author := Author {
+		Name: "Muaz Bin Wazir",
+		Age: 21,
+		Nationality: "Malaysian",
+		Salary: 60000.00,
+	}
+
 	e := Book {
 		Name: "The world of dicks",
 		Pages: 300,
-		Author: Author {
-			Name: "Muaz Bin Wazir",
-			Age: 21,
-			Nationality: "Malaysian",
-			Salary: 60000.00,
-		},
+		Author: author,
 	}
 
 	fmt.Println("Proper output")
