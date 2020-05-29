@@ -27,4 +27,7 @@ func concatStringWithError(first string, last string) (string, error) {
 
 func main() {
 	fmt.Println(concatString("Muaz", "wazir"))
+
+	x, err := concatStringWithError("", "")
+	fmt.Println(x, err)
 }
