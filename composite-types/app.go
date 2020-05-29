@@ -4,6 +4,7 @@ import(
 	"fmt"
 )
 
+
 func array() {
 
 	days := []string{"Monday", "Tuesday" ,"Wednesday", "Thursday", "Friday", "Saturday"}
@@ -28,7 +29,7 @@ func hashMaps() {
 	//Printing the pointer
 	fmt.Println(ptrPersonSalary)
 
-	// changing the value from the pointer
+	// changing the value of a map based on key
 	personSalary["muaz"] = 20000
 
 	fmt.Println(personSalary)
