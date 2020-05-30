@@ -51,8 +51,15 @@ func main() {
 	fmt.Println("Name :", x)
 
 	myFunction := anonymousFunction()
+	myFunction2 := anonymousFunction()
+
+	// Has similar effect to static variable ?
 	fmt.Println(myFunction())
 	fmt.Println(myFunction())
+
+	// Has similar effect to static variable ?
+	fmt.Println(myFunction2())
+	fmt.Println(myFunction2())
 }
 
 
