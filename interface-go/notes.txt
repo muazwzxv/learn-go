@@ -1,0 +1,4 @@
+Interface
+- Interfaces are named collections of methods signature
+- Interface is a sort of contract as we are forced to implement the funtion and methods defined
+  within the interface type
