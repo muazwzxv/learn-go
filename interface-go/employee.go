@@ -5,6 +5,8 @@ import(
 	"errors"
 )
 
+// All the functions in these interface has to be satisfied
+// By all the struct implementing the interface
 type Employee interface {
 	GetName() string
 	GetLanguageOfPreference() string
@@ -51,15 +53,21 @@ func main() {
 	afwina := Developer{"Afrina", "Java", 20, 5,}
 	awep := Developer{"Arep", "Python3", 21, 5,}
 
-	fmt.Println(muash.GetLanguageOfPreference())
-	fmt.Println(muash.GetName())
-	fmt.Println(muash.GetAge())
-	fmt.Println(muash.GetExperience())
+	//fmt.Println(muash.GetLanguageOfPreference())
+	//fmt.Println(muash.GetName())
+	//fmt.Println(muash.GetAge())
+	//fmt.Println(muash.GetExperience())
 
 	devs = append(devs, muash)
 	devs = append(devs, awep)
 	devs = append(devs, afwina)
-	fmt.Println(devs)
+
+	for _, val := range devs {
+		fmt.Println(val.GetName())
+		fmt.Println(val.GetAge())
+		fmt.Println(val.GetLanguageOfPreference())
+		fmt.Println(val.GetExperience())
+	}
 }
 
 
