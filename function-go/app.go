@@ -25,9 +25,38 @@ func concatStringWithError(first string, last string) (string, error) {
 	return first + " " + last, nil
 }
 
+func anonymousFunction() func() int {
+	// Define the function to return a function
+	var x int
+
+	return func() int {
+		// The function has access to x defined in the parent function
+		x++
+
+		//return x + 1
+		return x
+	}
+}
+
 func main() {
 	fmt.Println(concatString("Muaz", "wazir"))
 
 	x, err := concatStringWithError("", "")
-	fmt.Println(x, err)
+	if err != nil {
+		// Handler if error occurs
+		fmt.Println("You got an error there boi")
+		x = "Error name"
+	}
+
+	fmt.Println("Name :", x)
+
+	myFunction := anonymousFunction()
+	fmt.Println(myFunction())
+	fmt.Println(myFunction())
 }
+
+
+
+
+
+

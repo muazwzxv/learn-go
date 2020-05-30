@@ -36,6 +36,7 @@ func hashMaps() {
 }
 
 func main() {
-	hashMaps()
+	// App entry point starts here
 }
+
 
