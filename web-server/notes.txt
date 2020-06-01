@@ -1,0 +1,10 @@
+
+
+- server,go 
+	- Covers the creation of http server in golang and handling a path
+	- Cover mutex locking which block multiple use of resources simultaneously :- solve race
+	  condition vulnerability
+
+- server-html.go
+	- covers serving static html files
+
