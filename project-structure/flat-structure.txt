@@ -1,0 +1,32 @@
+
+
+Small Application - Flat Structure
+
+application/ 
+	- main.go
+	- main-test.go
+	- utils.go
+	- utils_test.go
+	- ..... etc
+
+- This structure is suitable for small project, but note that once the project get bigger
+  this structure will become messy
+
+Benefits 
+	- Microservices :- Great use case if the application is tiny and is deployed in a distributed
+	  fahsion. These program are meant to do just one thing
+
+
+
+Medium/Large size Application - Modularization
+
+go-api/
+	- main.go
+	- user/
+		- user.go
+		- login.go
+		- registration.go
+	- article/
+		- articles.go
+	- utils/ 
+		- utils.go
