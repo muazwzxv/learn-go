@@ -39,6 +39,8 @@ func main() {
 
 	log.Println("Server is listening on", port)
 	log.Fatal(http.ListenAndServe(port, nil))
+	log.Fatal(http.ListenAndServe(port, nil))
+
 }
 
 // fmt.Fprintf(io writer, string format, interface) (int, err)
@@ -46,6 +48,6 @@ func main() {
 
 /* Mutex locking
 - Mutex locking will lock a specific resources and let one process use it a time, pending request 
-  will be queue
+will be queue
 */
 
