@@ -2,5 +2,9 @@
 Goroutines
 - Lightweight thread managed by go runtime
 - Enable creating asynchronous parallel programs
-- 
+
+WaitGroups
+- used to block a certain block of code until another goroutines have successfully executed
+- WaitGroups essentially allow us to tackle the problem by blocking it until any goroutines within a
+  waitGroup have successfully executed
 
