@@ -23,4 +23,14 @@ func main() {
 	wg.Wait()
 
 	fmt.Println("Sequence finished")
+
+	fmt.Println("Anonymous function sequence begins")
+	
+	wg.Add(1)
+	go func() {
+		display(10, &wg)
+	}()
+	wg.Wait()
+
+	fmt.Println("All Execution has finished")
 }
