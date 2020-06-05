@@ -17,9 +17,9 @@ func main() {
 
 	// sequential execution
 	go timely(10)
-    go timely(20)
+    go timely(10)
 	
 	// We are expecting an input to terminate the program
-	//var input string
-	//fmt.Scanln(&input)
+	var input string
+	fmt.Scanln(&input)
 }
