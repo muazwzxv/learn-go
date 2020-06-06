@@ -26,3 +26,8 @@ func main() {
 
 // Sending and receiving data through a channel is a blocking event
 // main() function blocks it until it receives a value from out channel
+
+/*
+using this method will lead to unexpected behaviour, using traditional unbufferred channel,
+the goroutine will subsequently block until the value is received from the channel 
+*/
