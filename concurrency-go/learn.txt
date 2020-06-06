@@ -8,3 +8,8 @@ WaitGroups
 - WaitGroups essentially allow us to tackle the problem by blocking it until any goroutines within a
   waitGroup have successfully executed
 
+Channel
+- Channel are pipes that link goroutines based onon application that allow communication
+  and subsequently passing the value to and from variable 
+
+
