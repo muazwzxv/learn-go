@@ -6,21 +6,23 @@ import (
 	"log"
 )
 
+
 var urls = []string{
 	"https://google.com",
 	"https://twitter.com",
 	"https://github.com",
 }
 
+
 func fetch(url string) {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(res.Status)
+	fmt.Println(res)
 }
 
-func home(w http.ResponseWriter, r *http.Response) {
+func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Homepage endpoint hit boiss")
 
 	for _, url := range urls {
@@ -32,11 +34,7 @@ func home(w http.ResponseWriter, r *http.Response) {
 
 func handler() {
 	http.HandleFunc("/", home)
-	log.Fatal(http.ListenAndServe(port, nil))
-}
-
-func init() {
-	port := ":8080"
+	log.Fatal(http.ListenAndServe(":8080", nil))	
 }
 
 func main() {
