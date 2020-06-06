@@ -22,7 +22,7 @@ func fetch(url string) {
 
 func home(w http.ResponseWriter, r *http.Response) {
 	fmt.Println("Homepage endpoint hit boiss")
-	
+
 	for _, url := range urls {
 		go fetch(url)
 	}
@@ -32,7 +32,11 @@ func home(w http.ResponseWriter, r *http.Response) {
 
 func handler() {
 	http.HandleFunc("/", home)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(port, nil))
+}
+
+func init() {
+	port := ":8080"
 }
 
 func main() {
