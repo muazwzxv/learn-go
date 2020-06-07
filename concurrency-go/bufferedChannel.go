@@ -24,7 +24,7 @@ func main() {
 	go Calculate(channel)
 
 	data := <-channel
-	fmt.Println("Return data from channel", data)
+	fmt.Println("\n Return data from channel", data)
 
 	time.Sleep(1000 * time.Millisecond)
 }
