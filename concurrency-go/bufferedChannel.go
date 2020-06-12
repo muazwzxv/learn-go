@@ -28,3 +28,7 @@ func main() {
 
 	time.Sleep(1000 * time.Millisecond)
 }
+
+func muazKacak() {
+	fmt.Println("Muaz kacak rox")
+}
