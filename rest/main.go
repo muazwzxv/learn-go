@@ -12,7 +12,7 @@ import (
 type Article struct {
 	Title       string `json:"Title"`
 	Description string `json:"Description"`
-	Content     string `json:"content"`
+	Content     string `json:"Content"`
 }
 
 // Create a global Article array
