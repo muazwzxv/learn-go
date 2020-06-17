@@ -32,6 +32,10 @@ func handleRequest() {
 func main() {
 	Articles = []Article {
 		Article{"Awakening Of Arep", "A chinese boy waking up from sleeping", "Sikes hes gay"},
+		Article{"Star Wars Force Awaken", "A gurl who discover a cult", "Sikes shes  gay"},
+		Article{"Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
+		Article{"Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
+	fmt.Println(Articles)
 	handleRequest()
 }
