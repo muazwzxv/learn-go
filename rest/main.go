@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"encoding/json"
 )
 
 
@@ -21,13 +22,20 @@ var Articles []Article
 
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to the Hompage boi")
-	fmt.Println("Main Endpoint")
+	fmt.Println("Endpoint: Return the homepage")
+}
+
+func getAllArticles(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint: Return All Articles")
+	json.NewEncoder(w).Encode(Articles)
 }
 
 func handleRequest() {
 	http.HandleFunc("/", home)
+	http.HandleFunc("/api/Articles", getAllArticles)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
 
 func main() {
 	Articles = []Article {
@@ -36,6 +44,5 @@ func main() {
 		Article{"Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
 		Article{"Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
-	fmt.Println(Articles)
 	handleRequest()
 }
