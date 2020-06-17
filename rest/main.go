@@ -33,17 +33,31 @@ func getAllArticles(w http.ResponseWriter, r *http.Request) {
 }
 
 func getArticle(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint: Return Article By ID")
 	data := mux.Vars(r)
+
+	// Convert string to ints
 	id, err := strconv.Atoi(data["id"])
 	if err != nil {
-		errors.New("Error occured")
+		panic(err)
 	}
 
+	// Fetch article from datastore
+	article, err := getArticleHanlder(id)
+	if err != nil {
+		panic(err)
+	}
+
+	json.NewEncoder(w).Encode(article)
+}
+
+func getArticleHanlder(id int) (*Article, error) {
 	for _, article := range Articles {
 		if article.ID == id {
-			json.NewEncoder(w).Encode(article)
+			return &article, nil
 		}
 	}
+	return nil, errors.New("Not found")
 }
 
 func handleRequest() {
