@@ -1,0 +1,19 @@
+
+Rest api in Go
+
+- Creating a dynamic rest requires us to interface with 1 or more REST api
+
+- Expose Http methods for crud operation
+	- GET
+	- POST
+	- PUT
+	- DELETE
+
+
+Manipulating json in Go
+
+- Learn how to manipulate, manage and handle json data
+- Library used
+	- encoding/json
+- Marshalling
+	- Converting Go data struct to json

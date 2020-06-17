@@ -13,7 +13,7 @@ func CalculateValue(values chan int) {
 
 func main() {
 	fmt.Println("Go channel testrun")
-	
+
 	// use make function to create a channel
 	values := make(chan int) // created a channel of type int
 	defer close(values)
