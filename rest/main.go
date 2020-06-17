@@ -5,12 +5,13 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"github.com/gorilla/mux"
 )
 
 
 type Article struct {
 	Title string `json:"Title"`
-	Description string `json:"Desc"`
+	Description string `json:"Description"`
 	Content string `json:"content"`
 }
 
