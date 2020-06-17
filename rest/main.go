@@ -35,7 +35,7 @@ func handleRequest() {
 	router.HandleFunc("/", home)
 	router.HandleFunc("/api/Articles", getAllArticles)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func main() {
@@ -45,5 +45,6 @@ func main() {
 		Article{"Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
 		Article{"Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
+	fmt.Println("Rest APi v2.0 - Mux Routers")
 	handleRequest()
 }
