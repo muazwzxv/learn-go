@@ -37,10 +37,8 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 	data := mux.Vars(r)
 
 	// Convert string to ints
-	id, err := strconv.Atoi(data["id"])
-	if err != nil {
-		panic(err)
-	}
+	// Url is already string, no need for error checking
+	id, _ := strconv.Atoi(data["id"])
 
 	// Fetch article from datastore
 	article, err := getArticleHanlder(id)
