@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
@@ -58,12 +59,18 @@ func getArticleHanlder(id int) (*Article, error) {
 	return nil, errors.New("Not found")
 }
 
+func createArticle(w http.ResponseWriter, r *http.Request) {
+	body, _ := ioutil.ReadAll(r.Body)
+	fmt.Fprintf(w, "%+v", string(body))
+}
+
 func handleRequest() {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", home)
-	router.HandleFunc("/api/Articles", getAllArticles)
-	router.HandleFunc("/api/Article/{id}", getArticle)
+	router.HandleFunc("/api/article", getAllArticles)
+	router.HandleFunc("/api/article/{id}", getArticle)
+	router.HandleFunc("/api/article", createArticle).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
@@ -74,6 +81,12 @@ func main() {
 		Article{3, "Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
 		Article{4, "Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
+	byteArray, err := json.MarshalIndent(Articles, "", " ")
+	//byteArray, err := json.Marshal(Articles)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(byteArray))
 	fmt.Println("Rest APi v2.0 - Mux Routers")
 	handleRequest()
 }
