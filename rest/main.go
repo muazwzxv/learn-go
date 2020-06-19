@@ -60,15 +60,23 @@ func getArticleHanlder(id int) (*Article, error) {
 }
 
 func createArticle(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint: Post new article")
+	// Fetch the req body from the request n unmarshall into the Article struct
 	body, _ := ioutil.ReadAll(r.Body)
-	fmt.Fprintf(w, "%+v", string(body))
+	var article Article
+	json.Unmarshal(body, &article)
+
+	// Update the global Article array to include the new data
+	Articles = append(Articles, article)
+	json.NewEncoder(w).Encode(article)
+	fmt.Println(Articles)
 }
 
 func handleRequest() {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", home)
-	router.HandleFunc("/api/article", getAllArticles)
+	router.HandleFunc("/api/articles", getAllArticles)
 	router.HandleFunc("/api/article/{id}", getArticle)
 	router.HandleFunc("/api/article", createArticle).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8080", router))
@@ -81,12 +89,12 @@ func main() {
 		Article{3, "Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
 		Article{4, "Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
-	byteArray, err := json.MarshalIndent(Articles, "", " ")
+	//byteArray, err := json.MarshalIndent(Articles, "", " ")
 	//byteArray, err := json.Marshal(Articles)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(byteArray))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//fmt.Println(string(byteArray))
 	fmt.Println("Rest APi v2.0 - Mux Routers")
 	handleRequest()
 }
