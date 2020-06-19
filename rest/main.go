@@ -64,14 +64,14 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(article)
 }
 
-func getArticleHanlder(id int) (*Article, error) {
+/*func getArticleHanlder(id int) (*Article, error) {
 	for _, article := range Articles {
 		if article.ID == id {
 			return &article, nil
 		}
 	}
 	return nil, errors.New("Not found")
-}
+}*/
 
 func createArticle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Post new article")
