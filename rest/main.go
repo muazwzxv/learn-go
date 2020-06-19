@@ -32,7 +32,7 @@ func getAllArticles(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Return All Articles")
 	err := formatJSON()
 	if err != nil {
-		fmt.Println
+		fmt.Println(err)
 	}
 	json.NewEncoder(w).Encode(Articles)
 }
@@ -76,7 +76,7 @@ func createArticle(w http.ResponseWriter, r *http.Request) {
 
 	err := formatJSON()
 	if err != nil {
-		fmt.Println("Formatting error")
+		fmt.Println(err)
 	}
 	json.NewEncoder(w).Encode(article)
 }
@@ -84,14 +84,19 @@ func createArticle(w http.ResponseWriter, r *http.Request) {
 func deleteArticleByID(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Delete article by id")
 
-	args := mux.Vars(r)
+	data := mux.Vars(r)
 
-	id := args["id"]
+	id, _ := strconv.Atoi(data["id"])
 
 	for i, article := range Articles {
 		if article.ID == id {
-			Articles = append(Article[:i], Article[i+1:]...)
+			Articles = append(Articles[:i], Articles[i+1:]...)
 		}
+	}
+
+	err := formatJSON()
+	if err != nil {
+		fmt.Println(err)
 	}
 }
 
