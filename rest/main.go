@@ -68,18 +68,37 @@ func createArticle(w http.ResponseWriter, r *http.Request) {
 
 	// Update the global Article array to include the new data
 	Articles = append(Articles, article)
+
+	err := formatJSON()
+	if err != nil {
+		fmt.Println("Formatting error")
+	}
 	json.NewEncoder(w).Encode(article)
-	fmt.Println(Articles)
+}
+
+func deleteArticleByID(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint: Delete article by id")
 }
 
 func handleRequest() {
 
-	router := mux.NewRouter().StrictSlash(true)
+	//router := mux.NewRouter().StrictSlash(true)
+	router := mux.NewRouter()
 	router.HandleFunc("/", home)
 	router.HandleFunc("/api/articles", getAllArticles)
-	router.HandleFunc("/api/article/{id}", getArticle)
+	router.HandleFunc("/api/article/{id}", getArticle).Methods("GET")
 	router.HandleFunc("/api/article", createArticle).Methods("POST")
+	router.HandleFunc("/api/article/{id}", deleteArticleByID).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func formatJSON() error {
+	byteArray, err := json.MarshalIndent(Articles, "", " ")
+	if err != nil {
+		return errors.New("Failed to convert to json")
+	}
+	fmt.Println(string(byteArray))
+	return nil
 }
 
 func main() {
@@ -89,12 +108,6 @@ func main() {
 		Article{3, "Star Wars Return OF The Jedi", "A rise of an ancient cult", "Sikes hes gay"},
 		Article{4, "Harry Potter Goblet Of Fire", "A nerd with magic wands", "Sikes hes gay"},
 	}
-	//byteArray, err := json.MarshalIndent(Articles, "", " ")
-	//byteArray, err := json.Marshal(Articles)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Println(string(byteArray))
 	fmt.Println("Rest APi v2.0 - Mux Routers")
 	handleRequest()
 }
