@@ -46,7 +46,17 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(data["id"])
 
 	// Fetch article from datastore
-	article, err := getArticleHanlder(id)
+	// Anonymous function implementation
+	article, err := func(id int) (*Article, error) {
+		for _, article := range Articles {
+			if article.ID == id {
+				return &article, nil
+			}
+		}
+		return nil, errors.New("Not found")
+
+	}(id)
+	//article, err := getArticleHanlder(id)
 	if err != nil {
 		panic(err)
 	}
@@ -109,7 +119,7 @@ func handleRequest() {
 	router.HandleFunc("/api/article/{id}", getArticle).Methods("GET")
 	router.HandleFunc("/api/article", createArticle).Methods("POST")
 	router.HandleFunc("/api/article/{id}", deleteArticleByID).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
 
 func formatJSON() error {
