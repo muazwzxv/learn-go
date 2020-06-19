@@ -30,6 +30,10 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func getAllArticles(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Return All Articles")
+	err := formatJSON()
+	if err != nil {
+		fmt.Println
+	}
 	json.NewEncoder(w).Encode(Articles)
 }
 
@@ -63,6 +67,7 @@ func createArticle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Post new article")
 	// Fetch the req body from the request n unmarshall into the Article struct
 	body, _ := ioutil.ReadAll(r.Body)
+
 	var article Article
 	json.Unmarshal(body, &article)
 
@@ -78,6 +83,16 @@ func createArticle(w http.ResponseWriter, r *http.Request) {
 
 func deleteArticleByID(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint: Delete article by id")
+
+	args := mux.Vars(r)
+
+	id := args["id"]
+
+	for i, article := range Articles {
+		if article.ID == id {
+			Articles = append(Article[:i], Article[i+1:]...)
+		}
+	}
 }
 
 func handleRequest() {
