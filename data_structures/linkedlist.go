@@ -42,7 +42,7 @@ func (list *linkedlist) addAtBack(data int) {
 func (list *linkedlist) deleteAtFront() (*int, error) {
 	if list.head == nil {
 		code := -1
-		return &code, errors.New("The list is empty: nothing to delete")
+		return &code, errors.New("Houstan we got a problem: the list is empty")
 	}
 
 	current := list.head
@@ -51,11 +51,28 @@ func (list *linkedlist) deleteAtFront() (*int, error) {
 	return current.data, nil
 }
 
+func (list *linkedlist) deleteAtBack() (*int, error) {
+	if list.head == nil {
+		code := -1
+		return &code, errors.New("Houstan we got a problem: the list is empty")
+	}
+
+	current := list.head
+
+	for current.next != nil {
+		current = current.next
+	}
+
+	toReturn := current.data
+	current.next = nil
+	return toReturn, nil
+}
+
 func displayList(list *linkedlist) error {
 	current := list.head
 
 	if current.data == nil {
-		return errors.New("The list is empty")
+		return errors.New("Houstan we got a problem: the list is empty")
 	}
 
 	for current.next != nil {
