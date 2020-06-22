@@ -89,9 +89,8 @@ func (list *linkedlist) displayList() error {
 		return errors.New("Houstan we got a problem: the list is empty")
 	}
 
-	for current.next != nil {
+	for ; current.next != nil; current = current.next {
 		fmt.Println(current.data)
-		current = current.next
 	}
 
 	return nil
