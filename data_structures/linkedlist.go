@@ -68,6 +68,20 @@ func (list *linkedlist) deleteAtBack() (*int, error) {
 	return toReturn, nil
 }
 
+func (list *linkedlist) count() (*int, error) {
+	if list.head == nil {
+		code := -1
+		return &code, errors.New("Houstan we got a problem: the list is empty")
+	}
+
+	count := 0
+	for current := list.head; current.next != nil; current = current.next {
+		count++
+	}
+
+	return &count, nil
+}
+
 func displayList(list *linkedlist) error {
 	current := list.head
 
