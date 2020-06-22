@@ -96,6 +96,20 @@ func (list *linkedlist) displayList() error {
 	return nil
 }
 
+func (list *linkedlist) reverse() {
+	var prev, next *node
+	current := list.head
+
+	for current != nil {
+		next = current.next
+		current.next = prev
+		prev = current
+		current = next
+	}
+
+	list.head = prev
+}
+
 func main() {
 	fmt.Println("LinkedList")
 }
