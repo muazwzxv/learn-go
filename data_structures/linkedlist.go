@@ -1,11 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
 type node struct {
-	data int
+	data *int
 	next *node
 }
 
@@ -15,7 +16,7 @@ type linkedlist struct {
 }
 
 func newNode(data int) *node {
-	return &node{data, nil}
+	return &node{&data, nil}
 }
 
 func (list *linkedlist) addAtFront(data int) {
@@ -37,6 +38,21 @@ func (list *linkedlist) addAtBack(data int) {
 	}
 
 	current.next = node
+}
+
+func displayList(list *linkedlist) error {
+	current := list.head
+
+	if current.data == nil {
+		return errors.New("The list is empty")
+	}
+
+	for current.next != nil {
+		fmt.Println(current.data)
+		current = current.next
+	}
+
+	return nil
 }
 
 func main() {
