@@ -6,7 +6,7 @@ import (
 )
 
 type node struct {
-	data *int
+	data int
 	next *node
 }
 
@@ -15,7 +15,11 @@ type linkedlist struct {
 }
 
 func newNode(data int) *node {
-	return &node{&data, nil}
+	return &node{data, nil}
+}
+
+func (list *linkedlist) getFirst() *node {
+	return list.head
 }
 
 func (list *linkedlist) addAtFront(data int) {
@@ -39,10 +43,10 @@ func (list *linkedlist) addAtBack(data int) {
 	current.next = node
 }
 
-func (list *linkedlist) deleteAtFront() (*int, error) {
+func (list *linkedlist) deleteAtFront() (int, error) {
 	if list.head == nil {
 		code := -1
-		return &code, errors.New("Houstan we got a problem: the list is empty")
+		return code, errors.New("Houstan we got a problem: the list is empty")
 	}
 
 	current := list.head
@@ -51,10 +55,9 @@ func (list *linkedlist) deleteAtFront() (*int, error) {
 	return current.data, nil
 }
 
-func (list *linkedlist) deleteAtBack() (*int, error) {
+func (list *linkedlist) deleteAtBack() (int, error) {
 	if list.head == nil {
-		code := -1
-		return &code, errors.New("Houstan we got a problem: the list is empty")
+		return -1, errors.New("Houstan we got a problem: the list is empty")
 	}
 
 	current := list.head
@@ -68,10 +71,9 @@ func (list *linkedlist) deleteAtBack() (*int, error) {
 	return toReturn, nil
 }
 
-func (list *linkedlist) count() (*int, error) {
+func (list *linkedlist) count() (int, error) {
 	if list.head == nil {
-		code := -1
-		return &code, errors.New("Houstan we got a problem: the list is empty")
+		return -1, errors.New("Houstan we got a problem: the list is empty")
 	}
 
 	count := 0
@@ -79,21 +81,14 @@ func (list *linkedlist) count() (*int, error) {
 		count++
 	}
 
-	return &count, nil
+	return count, nil
 }
 
-func (list *linkedlist) displayList() error {
-	current := list.head
-
-	if current.data == nil {
-		return errors.New("Houstan we got a problem: the list is empty")
+func (list *linkedlist) displayList() {
+	for current := list.head; current != nil; current = current.next {
+		fmt.Println(current.data, " ")
 	}
-
-	for ; current.next != nil; current = current.next {
-		fmt.Println(current.data)
-	}
-
-	return nil
+	fmt.Print("/n")
 }
 
 func (list *linkedlist) reverse() {
@@ -111,5 +106,11 @@ func (list *linkedlist) reverse() {
 }
 
 func main() {
-	fmt.Println("LinkedList")
+	list := linkedlist{}
+	list.addAtFront(20)
+	list.addAtFront(40)
+	head := list.getFirst()
+	fmt.Println(head)
+
+	list.displayList()
 }
