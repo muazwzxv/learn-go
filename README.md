@@ -9,4 +9,7 @@ Covered
 - Web server
 - Pointers and struct
 - Interfaces
-- Composite types :- maps
+- Composite types :- map
+
+Data Structure
+- Linkedlist implementation
