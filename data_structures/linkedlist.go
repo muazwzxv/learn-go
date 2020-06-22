@@ -12,7 +12,6 @@ type node struct {
 
 type linkedlist struct {
 	head *node
-	last *node
 }
 
 func newNode(data int) *node {
@@ -38,6 +37,18 @@ func (list *linkedlist) addAtBack(data int) {
 	}
 
 	current.next = node
+}
+
+func (list *linkedlist) deleteAtFront() (*int, error) {
+	if list.head == nil {
+		code := -1
+		return &code, errors.New("The list is empty: nothing to delete")
+	}
+
+	current := list.head
+	list.head = current.next
+
+	return current.data, nil
 }
 
 func displayList(list *linkedlist) error {
