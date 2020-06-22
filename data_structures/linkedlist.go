@@ -82,7 +82,7 @@ func (list *linkedlist) count() (*int, error) {
 	return &count, nil
 }
 
-func displayList(list *linkedlist) error {
+func (list *linkedlist) displayList() error {
 	current := list.head
 
 	if current.data == nil {
