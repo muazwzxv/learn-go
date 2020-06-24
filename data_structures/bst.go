@@ -20,8 +20,7 @@ func max(a int, b int) int {
 }
 
 func newNode(data int) *node {
-	node := &node{data, nil, nil}
-	return node
+	return &node{data, nil, nil}
 }
 
 func printInOrder(node *node) {
@@ -33,20 +32,16 @@ func printInOrder(node *node) {
 	printInOrder(node.right)
 }
 
-func printPreOrder(node *node) {
-	if node == nil {
-		return
+func insert(root *node, data int) *node {
+	if root == nil {
+		return newNode(data)
 	}
-	fmt.Println(node.data, " ")
-	printPreOrder(node.left)
-	printPreOrder(node.right)
-}
 
-func printPostOrder(node *node) {
-	if node == nil {
-		return
+	if data < root.data {
+		root.left = insert(root.left, data)
+	} else {
+		root.right = insert(root.right, data)
 	}
-	printPostOrder(node.left)
-	printPostOrder(node.left)
-	fmt.Println(node.data, " ")
+
+	return root
 }
