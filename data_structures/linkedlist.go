@@ -18,8 +18,11 @@ func newNode(data int) *node {
 	return &node{data, nil}
 }
 
-func (list *linkedlist) getFirst() *node {
-	return list.head
+func (list *linkedlist) getFirst() (*node, error) {
+	if list.head == nil {
+		return nil, errors.New("Houstan we got a problem: The list is empty")
+	}
+	return list.head, nil
 }
 
 func (list *linkedlist) addAtFront(data int) {
@@ -109,8 +112,13 @@ func main() {
 	list := linkedlist{}
 	list.addAtFront(20)
 	list.addAtFront(40)
-	head := list.getFirst()
-	fmt.Println(head)
 
-	list.displayList()
+	list2 := linkedlist{}
+	data, err := list2.getFirst()
+
+	if err != nil {
+		fmt.Println("the error", err)
+	} else {
+		fmt.Println("The data", data)
+	}
 }
