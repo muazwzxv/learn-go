@@ -45,3 +45,12 @@ func insert(root *node, data int) *node {
 
 	return root
 }
+
+// return the furthest left element
+func inOrderSuccessor(root *node) *node {
+	current := root
+	if current.left != nil {
+		current = current.left
+	}
+	return current
+}
