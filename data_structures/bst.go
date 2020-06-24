@@ -32,18 +32,16 @@ func printInOrder(node *node) {
 	printInOrder(node.right)
 }
 
-func insert(root *node, data int) *node {
+func insert(root *node, data int) {
 	if root == nil {
-		return newNode(data)
+		newNode(data)
 	}
 
 	if data < root.data {
-		root.left = insert(root.left, data)
+		insert(root.left, data)
 	} else {
-		root.right = insert(root.right, data)
+		insert(root.right, data)
 	}
-
-	return root
 }
 
 // return the furthest left element
@@ -53,4 +51,27 @@ func inOrderSuccessor(root *node) *node {
 		current = current.left
 	}
 	return current
+}
+
+func delete(root *node, toDelete int) *node {
+	if root == nil {
+		return nil
+	}
+
+	if toDelete > root.data {
+		root.right = delete(root.right, toDelete)
+	} else if toDelete < root.data {
+		root.left = delete(root.left, toDelete)
+	} else {
+		// Reach the point to delete nodes
+
+		if root.left == nil {
+			root = root.right
+		} else if root.right = nil {
+			root = root.left
+		} else {
+			
+		}
+	}
+
 }
