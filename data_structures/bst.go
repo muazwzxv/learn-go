@@ -67,10 +67,10 @@ func delete(root *node, toDelete int) *node {
 
 		if root.left == nil {
 			root = root.right
-		} else if root.right = nil {
+		} else if root.right == nil {
 			root = root.left
 		} else {
-			
+
 		}
 	}
 
