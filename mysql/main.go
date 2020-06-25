@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("GO mysql tutorial")
 
-	db, err := sql.Open("mysql", "muaz:gohan456@tcp(127.0.0.1:3306)/test_crm")
+	db, err := sql.Open("mysql", ":@tcp(127.0.0.1:3306)/test_crm")
 
 	if err != nil {
 		panic(err.Error())
@@ -25,8 +25,5 @@ func main() {
 		panic(err.Error())
 	}
 
-	for result.Next() {
-		fmt.Println(result.ColumnTypes)
-	}
-
+	fmt.Println(result, "Instance of sql")
 }
