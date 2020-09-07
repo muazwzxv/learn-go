@@ -17,13 +17,23 @@ type Role struct {
 }
 
 func main() {
-	role := Role{Title: "Software Engineer", Level: 5}
-	Person := Person{Name: "Muaz Bin Wazir", Age: 21, Role: role}
 
-	byteArray, err := json.Marshal(Person)
+	role := Role{Title: "Software Engineer", Level: 5}
+	person := Person{Name: "Muaz Bin Wazir", Age: 21, Role: role}
+
+	byteArray, err := json.Marshal(person)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println(string(byteArray))
+
+	jsonString := `{"name":"Muaz Bin Wazir","age":21,"role":{"title":"Software Engineer","level":5}}`
+	var data Person
+	err = json.Unmarshal([]byte(jsonString), &data)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", data)
 }
