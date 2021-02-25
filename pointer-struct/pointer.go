@@ -3,17 +3,16 @@ package main
 import "fmt"
 
 type person struct {
-	name string
-	age int
+	name        string
+	age         int
 	nationality string
-	ic string
-	salary float64
+	ic          string
+	salary      float64
 }
-
 
 func main() {
 	x := person{"muaz", 21, "Malaysia", "000000-00-0000", 6000.00}
-	ptr  := &x
+	ptr := &x
 	// Displaying the pointer to a type
 	fmt.Println(ptr)
 
@@ -34,7 +33,6 @@ func main() {
 	fmt.Println((*ptr).ic)
 	fmt.Println((*ptr).salary)
 
-
 	// updating the value of struct member
 	ptr.name = "muaz semakin kacak"
 	ptr.salary = 10000.00
@@ -47,4 +45,3 @@ func main() {
 	fmt.Println("\nPrinting the actual variable")
 	fmt.Println(x)
 }
-
