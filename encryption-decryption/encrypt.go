@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"io"
+	"io/ioutil"
 )
 
 func main() {
@@ -41,4 +42,9 @@ func main() {
 	// time, for a given key.
 	encrypted := gcm.Seal(nonce, nonce, text, nil)
 	fmt.Println(encrypted)
+
+	err = ioutil.WriteFile("encrypt.data", encrypted, 0777)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
