@@ -6,6 +6,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
+// Tutorial from https://tutorialedge.net/golang/go-rabbitmq-tutorial/
 func main() {
 	fmt.Println("RabbitMQ + Go")
 	con, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -28,10 +29,28 @@ func main() {
 		true,   // durable
 		false,  // exclusive
 		false,  // autoDelete
-		false,  //
+		false,
 		nil,
 	)
-	fmt.Println(queue)
+	fmt.Println(queue) // Print the queue status
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Publish a message to the queue!
+	err = ch.Publish(
+		"",
+		"test",
+		false,
+		false,
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body:        []byte("Muaz paling terhensem"),
+		},
+	)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	fmt.Println("Successfully connected to RabbitMQ instance")
 }
