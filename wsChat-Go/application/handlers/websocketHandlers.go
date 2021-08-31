@@ -24,9 +24,9 @@ func WebsocketEndpoint(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-
 	log.Println("Upgrading to websocket ......")
-	err = ws.WriteJSON(&WebsocketResponse{"", `<em><small>Connected to server</small></em`, ""})
+
+	err = ws.WriteJSON(WebsocketResponse{"","<em><small>Connected to server</small></em", "" })
 	if err != nil {
 		log.Println(err)
 	}
