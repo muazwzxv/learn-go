@@ -10,6 +10,7 @@ func routes() http.Handler {
 	route := pat.New()
 
 	route.Get("/", http.HandlerFunc(handlers.Home))
+	route.Get("/ws", http.HandlerFunc(handlers.WebsocketEndpoint))
 
 	return route
 }
