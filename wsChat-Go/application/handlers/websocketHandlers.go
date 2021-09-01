@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+	"sort"
 )
 
 var wsChan = make(chan WebsocketPayload)
@@ -19,6 +20,7 @@ type WebsocketResponse struct {
 	Action string `json:"action"`
 	Message string `json:"message"`
 	MessageType string `json:"message_type"`
+	ConnectedUsers []string `json:"connected_users"`
 }
 
 // WebsocketPayload being the payload received by the client
@@ -45,7 +47,7 @@ func WebsocketEndpoint(w http.ResponseWriter, r *http.Request) {
 	conn := WebSocketConnection{ws}
 	clients[conn] = ""
 
-	err = ws.WriteJSON(WebsocketResponse{"","<em><small>Connected to server</small></em", "" })
+	err = ws.WriteJSON(WebsocketResponse{"","<em><small>Connected to server</small></em", "", []string{"hehe"} })
 	if err != nil {
 		log.Println(err)
 	}
@@ -81,10 +83,41 @@ func ListenToSocketChannel() {
 
 	for {
 		e := <- wsChan
-		res.Action = "Got here"
-		res.Message = fmt.Sprintf("Some message, and action was %s", e.Action)
-		broadcastMessage(res)
+
+		switch e.Action  {
+		case "username":
+			// Register new user
+			clients[e.Conn] = e.Username
+
+			res = WebsocketResponse{
+				Action: "user_list",
+				ConnectedUsers: getUserList(),
+			}
+
+			broadcastMessage(res)
+		case "left":
+			/**
+				Due to event "left" triggered before browsers unload
+				We are deleting the right user
+			 */
+			delete(clients, e.Conn)
+			res = WebsocketResponse{
+				Action: "user_list",
+				ConnectedUsers: getUserList(),
+			}
+
+			broadcastMessage(res)
+		}
 	}
+}
+
+func getUserList() []string {
+	var list []string
+	for _, username := range clients {
+		list = append(list, username)
+	}
+	sort.Strings(list)
+	return list
 }
 
 func broadcastMessage(res WebsocketResponse) {

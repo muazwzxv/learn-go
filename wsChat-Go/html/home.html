@@ -25,6 +25,8 @@
        <div class="col-md-8">
           <h3>Chat</h3>
 
+           <p><a href="https://github.com">Go to Github</a></p>
+
            <div class="form-group">
                <label for="username">Username:</label>
                <input type="text" name="username" id="username" class="form-control" autocomplete="off">
@@ -46,6 +48,9 @@
        </div>
         <div class="col-md-4">
             <h3>Online participant</h3>
+            <ul id="online_users">
+
+            </ul>
         </div>
     </div>
 </div>
@@ -56,6 +61,16 @@
     // set is as null first and listen for event when the document is loaded
     // to connect to a websocket
     let socket = null;
+
+    // triggers just before the page reload
+    window.onbeforeunload = () => {
+        console.log("Leaving ......")
+        let payload = {
+            action: "left"
+        }
+        socket.send(JSON.stringify(payload))
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         socket = new WebSocket("ws://localhost:8080/ws")
 
@@ -72,8 +87,34 @@
         }
 
         socket.onmessage = (msg) => {
-            console.log(JSON.parse(msg.data))
+            let data = JSON.parse(msg.data)
+
+            switch(data.action) {
+                case 'user_list':
+                    let ul = document.getElementById("online_users")
+                    // Reset the list to be repopulate with new online users list
+                    while (ul.firstChild) ul.removeChild(ul.firstChild)
+
+                    users = data.connected_users
+                    if (users.length > 0) {
+                        users.forEach(user => {
+                           let li = document.createElement("li")
+                            li.appendChild(document.createTextNode(user))
+                            ul.appendChild(li)
+                        })
+                    }
+                    break
+            }
         }
+
+        let usernameInput = document.getElementById("username")
+        usernameInput.addEventListener("change", function() {
+            let payload = {
+                action: "username",
+                username: this.value
+            }
+            socket.send(JSON.stringify(payload))
+        })
     })
 
 </script>
