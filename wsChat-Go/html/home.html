@@ -37,11 +37,14 @@
                <input type="text" name="message" id="message" class="form-control" autocomplete="off">
            </div>
 
+           <hr>
+           <a href="javascript:void(0)"; class="btn btn-outline-secondary" id="send">Send Message</a>
+
            <input type="hidden" name="action" id="action">
 
            <hr>
 
-           <div id="output" class="chatbox">
+           <div id="chatbox" class="chatbox">
 
            </div>
 
@@ -61,6 +64,7 @@
     // set is as null first and listen for event when the document is loaded
     // to connect to a websocket
     let socket = null;
+    let chat = document.getElementById("chatbox")
 
     // triggers just before the page reload
     window.onbeforeunload = () => {
@@ -104,6 +108,10 @@
                         })
                     }
                     break
+
+                case "broadcast":
+                    chat.innerHTML = chat.innerHTML + data.message + "<br>"
+                    break
             }
         }
 
@@ -115,7 +123,51 @@
             }
             socket.send(JSON.stringify(payload))
         })
+
+        document.getElementById("message").addEventListener("keydown", event => {
+            if (event.code === "Enter") {
+                if (!socket) {
+                    console.log("No connection")
+                    return false
+                }
+
+                username = document.getElementById("username").value
+                message  = document.getElementById("message").value
+                if ((username === "") || (message === "")) {
+                    alert("Fill out username and message")
+                    return false;
+                }
+
+                // Handle browsers default behavior
+                event.preventDefault()
+                event.stopPropagation()
+
+                sendMessage()
+            }
+        })
+
+        document.getElementById("send").addEventListener("click", () => {
+            username = document.getElementById("username").value
+            message  = document.getElementById("message").value
+
+            if ((username === "") || (message === "")) {
+                alert("Fill out username and message")
+                return false;
+            }
+            sendMessage()
+        })
     })
+
+    const sendMessage = () => {
+        let payload = {
+            action: "broadcast",
+            username: document.getElementById("username").value,
+            message: document.getElementById("message").value
+        }
+
+        socket.send(JSON.stringify(payload))
+        document.getElementById("message").value = ""
+    }
 
 </script>
 

@@ -8,13 +8,10 @@ import (
 	"sort"
 )
 
-var wsChan = make(chan WebsocketPayload)
-var clients = make(map[WebSocketConnection]string)
 
 type WebSocketConnection struct {
 	*websocket.Conn
 }
-
 // WebsocketResponse Response type of websocket
 type WebsocketResponse struct {
 	Action string `json:"action"`
@@ -22,7 +19,6 @@ type WebsocketResponse struct {
 	MessageType string `json:"message_type"`
 	ConnectedUsers []string `json:"connected_users"`
 }
-
 // WebsocketPayload being the payload received by the client
 type WebsocketPayload struct {
 	Action string `json:"action"`
@@ -31,26 +27,27 @@ type WebsocketPayload struct {
 	Conn WebSocketConnection `json:"-"`
 }
 
+var wsChan = make(chan WebsocketPayload)
+var clients = make(map[WebSocketConnection]string)
 var upgradeConnection = websocket.Upgrader{
 ReadBufferSize: 1024,
 	WriteBufferSize: 1024,
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
+
+// Entrypoint for websocket connection
 func WebsocketEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgradeConnection.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
-	}
+
+	if err != nil { log.Println(err) }
 	log.Println("Upgrading to websocket ......")
 
 	conn := WebSocketConnection{ws}
 	clients[conn] = ""
 
 	err = ws.WriteJSON(WebsocketResponse{"","<em><small>Connected to server</small></em", "", []string{"hehe"} })
-	if err != nil {
-		log.Println(err)
-	}
+	if err != nil { log.Println(err) }
 
 	go ListenWebsocket(&conn)
 }
@@ -105,7 +102,14 @@ func ListenToSocketChannel() {
 				Action: "user_list",
 				ConnectedUsers: getUserList(),
 			}
+			broadcastMessage(res)
 
+		case "broadcast":
+			// Broadcast logic
+			res = WebsocketResponse{
+				Action: "broadcast",
+				Message: fmt.Sprintf("<strong>%s</strong>: %s", e.Username, e.Message),
+			}
 			broadcastMessage(res)
 		}
 	}
@@ -114,7 +118,9 @@ func ListenToSocketChannel() {
 func getUserList() []string {
 	var list []string
 	for _, username := range clients {
-		list = append(list, username)
+		if username != "" {
+			list = append(list, username)
+		}
 	}
 	sort.Strings(list)
 	return list
