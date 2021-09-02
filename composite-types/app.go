@@ -1,13 +1,12 @@
 package main
 
-import(
+import (
 	"fmt"
 )
 
-
 func array() {
 
-	days := []string{"Monday", "Tuesday" ,"Wednesday", "Thursday", "Friday", "Saturday"}
+	days := []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
 
 	weekdays := days[0:5]
 	fmt.Println(weekdays)
@@ -15,9 +14,9 @@ func array() {
 
 func hashMaps() {
 	personSalary := map[string]float64{
-		"muaz": 10000.00,
-		"arep": 10000.00,
-		"lano": 10000.00,
+		"muaz":  10000.00,
+		"arep":  10000.00,
+		"lano":  10000.00,
 		"copia": 10000.00,
 	}
 
@@ -38,5 +37,3 @@ func hashMaps() {
 func main() {
 	// App entry point starts here
 }
-
-
