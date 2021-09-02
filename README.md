@@ -3,8 +3,8 @@
 - This is just me learning the programming language Go and it has been fun
 
 ### Basics
-- [control structures](./control-structure)
-- [functions](./function-go)
+- [control structures](./control-structure/)
+- [functions](./function-go/)
 - [init](./init-go)
 - [interface](./interface-go)
 - [composite types](./composite-types)
