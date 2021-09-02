@@ -17,13 +17,13 @@
 - [Data structures](./data_structures) 
 
 ### Advance 
-- [Rabbitmq](./RabbitMq)
+- [Rabbitmq](./RabbitMQ)
 - [mysql](./mysql)
 - [Web Server](./web-server)
 
 ### Projects
 - [Rest API](./rest)
-- [Socket Chat](./wsChat-go)
+- [Socket Chat](./wsChat-Go)
 
 ### Concurrency
 - [Concurrency](./concurrency-go)
