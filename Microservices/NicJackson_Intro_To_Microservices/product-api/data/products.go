@@ -34,6 +34,15 @@ func GetProducts() Products {
 	return productList
 }
 
+func AddProduct(p *Product) {
+	p.ID = func() int {
+		prodList := productList[len(productList)-1]
+		return prodList.ID + 1
+	}()
+
+	productList = append(productList, p)
+}
+
 // Dummy data
 var productList = []*Product{
 	{

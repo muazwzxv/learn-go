@@ -2,9 +2,8 @@ package handler
 
 import (
 	"log"
+	"muazwzxv/product-api/data"
 	"net/http"
-
-	"github.com/muazwzxv/learn-go/Microservices/NicJackson_Intro_To_Microservices/product-api/data"
 )
 
 type ProductHandler struct {
@@ -54,7 +53,9 @@ func (p *ProductHandler) postProduct(rw http.ResponseWriter, r *http.Request) {
 
 	err := product.FromJSON(r.Body)
 	if err != nil {
-		http.Error(rw, "Unable to unmarshal json", http.StatusInternalServerError)
+		http.Error(rw, "Unable to unmarshal json", http.StatusBadRequest)
 	}
 
+	data.AddProduct(product)
+	p.log.Printf("Product: %v", product)
 }
