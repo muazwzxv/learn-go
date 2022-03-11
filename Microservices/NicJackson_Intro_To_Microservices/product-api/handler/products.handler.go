@@ -40,26 +40,28 @@ func (p *ProductHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			http.Error(rw, "INVALID URI", http.StatusBadRequest)
 			return
 		}
-
 		log.Printf("The id is: %d", id)
 
+		p.updateProduct(id, rw, r)
+		return
 	}
 
 	// catch
 	rw.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-func (p *ProductHandler) getProducts(rw http.ResponseWriter, r *http.Request) {
-	p.log.Println("Handle GET Request")
+func (p *ProductHandler) updateProduct(id int, rw http.ResponseWriter, r *http.Request) {
+	p.log.Println("Handle PUT Request")
 
-	products := data.GetProducts()
-
-	err := products.ToJSON(rw)
+	product := &data.Product{}
+	err := product.FromJSON(r.Body)
 
 	if err != nil {
-		p.log.Fatalf("Error %s", err)
-		http.Error(rw, "Unable to Marshal json", http.StatusInternalServerError)
+		http.Error(rw, "Unable to unmarshal json", http.StatusBadRequest)
 	}
+
+	// To do
+	data.UpdateProduct(id, product)
 }
 
 func (p *ProductHandler) postProduct(rw http.ResponseWriter, r *http.Request) {
@@ -74,4 +76,17 @@ func (p *ProductHandler) postProduct(rw http.ResponseWriter, r *http.Request) {
 
 	data.AddProduct(product)
 	p.log.Printf("Product: %v", product)
+}
+
+func (p *ProductHandler) getProducts(rw http.ResponseWriter, r *http.Request) {
+	p.log.Println("Handle GET Request")
+
+	products := data.GetProducts()
+
+	err := products.ToJSON(rw)
+
+	if err != nil {
+		p.log.Fatalf("Error %s", err)
+		http.Error(rw, "Unable to Marshal json", http.StatusInternalServerError)
+	}
 }

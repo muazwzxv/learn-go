@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+type Products []*Product
+
 type Product struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`
@@ -17,17 +19,10 @@ type Product struct {
 	DeletedAt   time.Time `json:"-"`
 }
 
-type Products []*Product
+// CRUD
 
-func (p *Products) ToJSON(w io.Writer) error {
-	// This writes the encoded json to w
-	e := json.NewEncoder(w)
-	return e.Encode(p)
-}
-
-func (p *Product) FromJSON(r io.Reader) error {
-	e := json.NewDecoder(r)
-	return e.Decode(p)
+func UpdateProduct(id int, p *Product) Product {
+	return Product{}
 }
 
 func GetProducts() Products {
@@ -41,6 +36,19 @@ func AddProduct(p *Product) {
 	}()
 
 	productList = append(productList, p)
+}
+
+// Helpers
+
+func (p *Products) ToJSON(w io.Writer) error {
+	// This writes the encoded json to w
+	e := json.NewEncoder(w)
+	return e.Encode(p)
+}
+
+func (p *Product) FromJSON(r io.Reader) error {
+	e := json.NewDecoder(r)
+	return e.Decode(p)
 }
 
 // Dummy data
