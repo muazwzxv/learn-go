@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/muazwzxv/learn-go/Microservices/NicJackson_Intro_To_Microservices/handlers"
+	"github.com/muazwzxv/learn-go/Microservices/NicJackson_Intro_To_Microservices/basic-go-httplib/handlers"
 )
 
 func main() {
