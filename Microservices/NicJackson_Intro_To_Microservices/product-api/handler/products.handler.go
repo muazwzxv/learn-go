@@ -4,6 +4,8 @@ import (
 	"log"
 	"muazwzxv/product-api/data"
 	"net/http"
+	"regexp"
+	"strconv"
 )
 
 type ProductHandler struct {
@@ -26,7 +28,21 @@ func (p *ProductHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == http.MethodPut {
-		return
+		regex := regexp.MustCompile(`/([0-9]+)`)
+		group := regex.FindAllStringSubmatch(r.URL.Path, -1)
+		if len(group) != 1 || len(group[0]) != 2 {
+			http.Error(rw, "INVALID URI", http.StatusBadRequest)
+			return
+		}
+
+		id, err := strconv.Atoi(group[0][1])
+		if err != nil {
+			http.Error(rw, "INVALID URI", http.StatusBadRequest)
+			return
+		}
+
+		log.Printf("The id is: %d", id)
+
 	}
 
 	// catch
