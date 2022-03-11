@@ -15,8 +15,8 @@ func NewIntroHandler(logger *log.Logger) *IntroHandler {
 	return &IntroHandler{logger}
 }
 
-func (h *IntroHandler) ServeHTTP(wr http.ResponseWriter, r http.Request) {
-	log.Print("Hello Mate")
+func (h *IntroHandler) ServeHTTP(wr http.ResponseWriter, r *http.Request) {
+	h.logger.Print("Hello Mate")
 
 	if data, err := ioutil.ReadAll(r.Body); err != nil {
 		http.Error(wr, "Error", http.StatusBadRequest)
