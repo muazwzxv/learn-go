@@ -3,13 +3,12 @@ package main
 import (
 	"context"
 	"log"
+	"muazwzxv/product-api/handler"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/muazwzxv/learn-go/Microservices/NicJackson_Intro_To_Microservices/product-api/handler"
 )
 
 func main() {
@@ -31,7 +30,6 @@ func main() {
 	}
 
 	go func() {
-
 		log.Println("Server starting on port 9000")
 
 		err := server.ListenAndServe()
@@ -49,5 +47,5 @@ func main() {
 	log.Println("Received terminate request, graceful shutdown", sig)
 
 	timeoutContext, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	server.Shutdown(timeoutContext)
+	_ = server.Shutdown(timeoutContext)
 }

@@ -3,19 +3,18 @@ package main
 import (
 	"context"
 	"log"
+	handler "muazwzxv/basic-go-httplib/hanlder"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/muazwzxv/learn-go/Microservices/NicJackson_Intro_To_Microservices/basic-go-httplib/handlers"
 )
 
 func main() {
 
 	logger := log.New(os.Stdout, "intro-api", log.LstdFlags)
-	introHandler := handlers.NewIntroHandler(logger)
+	introHandler := handler.NewIntroHandler(logger)
 
 	serveMux := http.NewServeMux()
 	serveMux.Handle("/", introHandler)
@@ -43,14 +42,14 @@ func main() {
 	logger.Println("Received terminate request, graceful shutdown", sig)
 
 	timeoutContext, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	server.Shutdown(timeoutContext)
+	_ = server.Shutdown(timeoutContext)
 }
 
 /**
 http.ListenAndServe(":9000", nil)
 - Setting nil will use the default serveMux
 - Above code shows us overriding the default serveMux
-  to use our own servemux with our route handlers
+  to use our own servemux with our route hanlder
 
 http.ListenAndServe(":9000", customServeMux)
 - customServeMux is the custom serverMux we defined

@@ -1,0 +1,5 @@
+github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/muazwzxv/learn-go v0.0.0-20220311102459-fa636ad51a1d h1:rOP/mhmJbfLmzuU5SVVMRKBlygR1X1sJcnu9vg1KQp4=
+github.com/muazwzxv/learn-go v0.0.0-20220311102459-fa636ad51a1d/go.mod h1:lcPT/f4koKBYZxLrh6b3FdsVb475JneEKsBUf6o1qyI=
+github.com/streadway/amqp v1.0.0/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
