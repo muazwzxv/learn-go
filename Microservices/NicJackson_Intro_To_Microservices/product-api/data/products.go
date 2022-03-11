@@ -21,8 +21,25 @@ type Product struct {
 
 // CRUD
 
-func UpdateProduct(id int, p *Product) Product {
-	return Product{}
+func UpdateProduct(id int, p *Product) *Product {
+	updated := func() *Product {
+		var found *Product
+		for _, val := range productList {
+
+			if val.ID != id {
+				continue
+			}
+
+			// Update the current
+			val = p
+
+			// assign found
+			found = val
+		}
+		return found
+	}()
+
+	return updated
 }
 
 func GetProducts() Products {
