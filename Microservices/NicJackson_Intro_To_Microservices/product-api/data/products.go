@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"time"
 )
@@ -21,25 +22,24 @@ type Product struct {
 
 // CRUD
 
-func UpdateProduct(id int, p *Product) *Product {
-	updated := func() *Product {
-		var found *Product
-		for _, val := range productList {
-
-			if val.ID != id {
-				continue
+func UpdateProduct(id int, p *Product) (*Product, error) {
+	index, err := func() (int, error) {
+		for i, val := range productList {
+			if val.ID == id {
+				return i, nil
 			}
-
-			// Update the current
-			val = p
-
-			// assign found
-			found = val
 		}
-		return found
+		return -1, fmt.Errorf("Product not found")
 	}()
 
-	return updated
+	if err != nil {
+		return nil, err
+	}
+
+	p.ID = id
+	productList[index] = p
+
+	return productList[index], nil
 }
 
 func GetProducts() Products {
@@ -74,7 +74,7 @@ var productList = []*Product{
 		ID:          1,
 		Name:        "Latte",
 		Description: "Frothy milky coffee",
-		Price:       2.50,
+		Price:       3.00,
 		SKU:         "wer453",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
@@ -84,8 +84,18 @@ var productList = []*Product{
 		ID:          2,
 		Name:        "Espresso",
 		Description: "Short and strong coffee without milk",
-		Price:       2,
+		Price:       2.50,
 		SKU:         "hdj454",
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+	},
+
+	{
+		ID:          3,
+		Name:        "Mocha",
+		Description: "A coffee mix with chocolate",
+		Price:       3.50,
+		SKU:         "vnj857",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	},
