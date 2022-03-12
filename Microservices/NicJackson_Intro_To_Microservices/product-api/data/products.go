@@ -22,7 +22,7 @@ type Product struct {
 
 // CRUD
 
-func UpdateProduct(id int, p *Product) (*Product, error) {
+func UpdateProduct(id int, p *Product) error {
 	index, err := func() (int, error) {
 		for i, val := range productList {
 			if val.ID == id {
@@ -33,13 +33,13 @@ func UpdateProduct(id int, p *Product) (*Product, error) {
 	}()
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	p.ID = id
 	productList[index] = p
 
-	return productList[index], nil
+	return nil
 }
 
 func GetProducts() Products {

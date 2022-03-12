@@ -61,7 +61,13 @@ func (p *ProductHandler) updateProduct(id int, rw http.ResponseWriter, r *http.R
 	}
 
 	// To do
-	data.UpdateProduct(id, product)
+	err = data.UpdateProduct(id, product)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	p.log.Printf("Updated products : %v", product)
 }
 
 func (p *ProductHandler) postProduct(rw http.ResponseWriter, r *http.Request) {
