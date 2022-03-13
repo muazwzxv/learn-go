@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"log"
+	"muazwzxv/product-api-fiber/handler"
 	"os"
 	"os/signal"
 	"syscall"
@@ -12,13 +13,13 @@ import (
 )
 
 func main() {
-	log := log.New(os.Stdout, "Product-api", log.LstdFlags)
 
 	app := setup()
 
 	go func() {
 		if err := app.Listen(":9000"); err != nil {
-			log.Panic(err)
+			log.Printf("Failed to start application: %v", err)
+			os.Exit(1)
 		}
 	}()
 
@@ -50,4 +51,13 @@ func setup() *fiber.App {
 	app.Use(cors.New())
 
 	return app
+}
+
+func routes(app *fiber.App) {
+	log := log.New(os.Stdout, "Product-api", log.LstdFlags)
+
+	productHandler := handler.NewProductHandler(log)
+	app.Get("/product", productHandler.GetProducts)
+	app.Put("/product/:id", productHandler.UpdateProduct)
+	app.Post("product/:id", productHandler.PostProduct)
 }
