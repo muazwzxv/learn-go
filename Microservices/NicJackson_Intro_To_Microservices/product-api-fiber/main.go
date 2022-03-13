@@ -16,6 +16,8 @@ func main() {
 
 	app := setup()
 
+	routes(app)
+
 	go func() {
 		if err := app.Listen(":9000"); err != nil {
 			log.Printf("Failed to start application: %v", err)
@@ -59,5 +61,5 @@ func routes(app *fiber.App) {
 	productHandler := handler.NewProductHandler(log)
 	app.Get("/product", productHandler.GetProducts)
 	app.Put("/product/:id", productHandler.UpdateProduct)
-	app.Post("product/:id", productHandler.PostProduct)
+	app.Post("product", productHandler.PostProduct)
 }
