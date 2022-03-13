@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"log"
-	handler "muazwzxv/basic-go-httplib/hanlder"
+	"muazwzxv/basic-go-httplib/handler"
 	"net/http"
 	"os"
 	"os/signal"
@@ -49,7 +49,7 @@ func main() {
 http.ListenAndServe(":9000", nil)
 - Setting nil will use the default serveMux
 - Above code shows us overriding the default serveMux
-  to use our own servemux with our route hanlder
+  to use our own servemux with our route handler
 
 http.ListenAndServe(":9000", customServeMux)
 - customServeMux is the custom serverMux we defined

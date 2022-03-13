@@ -2,7 +2,7 @@ package handler
 
 import (
 	"log"
-	"muazwzxv/product-api/data"
+	"muazwzxv/product-api-httplib/data"
 	"net/http"
 	"regexp"
 	"strconv"
