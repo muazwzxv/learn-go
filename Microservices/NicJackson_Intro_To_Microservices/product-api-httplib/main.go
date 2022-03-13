@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"log"
-	"muazwzxv/product-api/handler"
+	"muazwzxv/product-api-httplib/handler"
 	"net/http"
 	"os"
 	"os/signal"
