@@ -24,31 +24,36 @@ func main() {
 }
 
 func task1(done chan struct{}) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 	fmt.Println("Task 1")
+
 	done <- struct{}{}
 }
 
 func task2(done chan struct{}) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 	fmt.Println("Task 2")
+
 	done <- struct{}{}
 }
 
 func task3(done chan struct{}) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 	fmt.Println("Task 3")
+
 	done <- struct{}{}
 }
 
 func task4(done chan struct{}) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 	fmt.Println("Task 4")
+
 	done <- struct{}{}
 }
 
 func task5(done chan struct{}) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(50 * time.Millisecond)
 	fmt.Println("Task 5")
+
 	done <- struct{}{}
 }
