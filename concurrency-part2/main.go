@@ -7,7 +7,9 @@ import (
 
 func main() {
 
-	go run()
+	go func() {
+		run()
+	}()
 
 	for i := 0; i < 10; i++ {
 		time.Sleep(500 * time.Millisecond)
