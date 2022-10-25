@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	listener, err := net.Listen("tcp", "8000")
+	listener, err := net.Listen("tcp", ":8000")
 	if err != nil {
 		log.Fatalf("could not create listener %v", err)
 	}

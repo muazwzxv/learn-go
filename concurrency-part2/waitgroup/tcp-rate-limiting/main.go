@@ -13,17 +13,18 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < total; i++ {
+	for i := 0; i < total; i += max {
 		limit := max
 		if (i + max) > total {
 			limit = total - i
 		}
 
 		wg.Add(limit)
+
 		for j := 0; j < limit; j++ {
-			go func(n int) {
+			go func(j int) {
 				defer wg.Done()
-				conn, err := net.Dial("tcp", ":8080")
+				conn, err := net.Dial("tcp", ":8000")
 				if err != nil {
 					log.Fatalf("failed to connect: %v", err)
 				}
